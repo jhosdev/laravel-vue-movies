@@ -11,7 +11,7 @@ Note: you need PHP, XAMP & Artisan CLI installed
 
 ```bash
 $ composer install
-$ copy .env.example .env
+$ cp .env.example .env
 $ cd vue
 $ npm install
 ```
