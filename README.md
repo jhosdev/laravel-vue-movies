@@ -11,6 +11,7 @@ Note: you need PHP, XAMP & Artisan CLI installed
 
 ```bash
 $ composer install
+$ copy .env.example .env
 $ cd vue
 $ npm install
 ```
@@ -18,8 +19,11 @@ $ npm install
 ## Running the app:
 
 ```bash
+$ php artisan migrate
 $ php artisan serve
 ```
+
+Go to the server url and generate the api key for the app
 
 Open another terminal
 
