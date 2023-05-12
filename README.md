@@ -10,7 +10,7 @@ Backend implemented using [Laravel](https://laravel.com/) framework with PHP and
 Note: you need PHP, XAMP & Artisan CLI installed
 
 ```bash
-$ npm install
+$ composer install
 $ cd vue
 $ npm install
 ```
