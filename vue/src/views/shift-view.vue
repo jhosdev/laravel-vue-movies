@@ -29,12 +29,10 @@ export default {
         const id = this.$route.params.id;
         this.movieID = id;
         this.getUser();
-        console.log(this.movieTitle)
     },
     methods: {
         getUser: async function () {
             const { data } = await this.service.getMovieById(this.movieID);
-            console.log(data);
             this.movieTitle = data.name;
         }
     }

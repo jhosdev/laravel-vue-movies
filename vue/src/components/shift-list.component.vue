@@ -62,7 +62,7 @@
             </div>
 
             <div class="field flex">
-                <pv-checkbox v-model="shift.status" inputId="stat" name="true" value="status" />
+                <pv-checkbox v-model="shift.status" inputId="stat" name="true" :value="true" />
                 <label for="stat" class="ml-2"> Activo? </label>
             </div>
 
@@ -145,8 +145,12 @@ async function getShifts() {
 
 async function createShift(body) {
     try {
-        const { data } = await shiftsService.createShift(body);
-        shifts.value.push({ ...data, status: "Inactivo" });
+        body.movie_id=props.movie_id;
+        (body.status) ? body.status=body.status[0] : body.status=0
+        body.date=formatDate(body.date);
+        const { data } = await shiftsService.createShift(props.movie_id,body);
+        console.log(data)
+        shifts.value.push({ ...data, active: data.status ? "Activo" : "Inactivo", });
     }
     catch (err) {
         console.log(err)
@@ -156,7 +160,7 @@ async function createShift(body) {
 async function updateShiftService(id, body) {
     try {
         let st;
-
+        console.log(shift.value)
         console.log(body)
 
 
@@ -177,6 +181,7 @@ async function updateShiftService(id, body) {
 async function deleteShiftService(id) {
     try {
         const { data } = await shiftsService.deleteShift(id);
+        shifts.value = shifts.value.filter(shift => shift.id !== id);
         if (data) return true;
     }
     catch (err) {
@@ -187,10 +192,6 @@ async function deleteShiftService(id) {
 
 const formatDate = (value) => {
     if (value) {
-        console.log(value)
-        //Value : 1970-01-01 00:00:00
-        //Expected Result: 00:00
-        //Bad Result: 01/01/1970, 00:00
         const options = { hour: '2-digit', minute: '2-digit' };
         let date = new Date(value);
         let formattedDate = date.toLocaleDateString('en-GB', options);

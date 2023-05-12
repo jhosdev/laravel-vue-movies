@@ -44,8 +44,9 @@
 
                 <pv-column header="Image">
                     <template #body="slotProps">
-                        <img :src="`https://primefaces.org/cdn/primevue/images/product/${slotProps.data.image}`"
-                            :alt="slotProps.data.image" class="shadow-2 border-round" style="width: 64px" />
+                        <img v-if="slotProps.data.imgPath" :src="`slotProps.data.imgPath`"
+                            :alt="slotProps.data.imgPath" class="shadow-2 border-round" style="width: 64px" />
+                        <span v-else>No image available</span>
                     </template>
                 </pv-column>
 
@@ -193,7 +194,11 @@ async function updateMovieService(id, body) {
 async function deleteMovieService(id) {
     try {
         const { data } = await moviesService.deleteMovie(id);
-        if (data) return true;
+        if (data) {
+            console.log(data)
+            movies.value = movies.value.filter(movie => movie.id !== id);
+            return true;
+        }
     }
     catch (err) {
         console.log(err)

@@ -60,7 +60,7 @@ class ShiftController extends Controller
 
         $shift->movie_id = $movieId;
 
-        $formattedDate = date('Y-m-d H:i:s', strtotime($request->status));
+        $formattedDate = date('Y-m-d H:i:s', strtotime($request->date));
         $shift->date = $formattedDate;
 
         $shift->status = $request->status;
